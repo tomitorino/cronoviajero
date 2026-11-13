@@ -105,6 +105,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, gift: { ammo: true }, lines: ['Ojo con los grandotes de cada época: disparan en abanico y pegan saltos. No te quedes quieto.', 'Yo me quedé quieto una vez. Por eso uso bastón. No se ve porque es pixel art.'] },
     miliciana: { sprite: 'miliciana', gift: { heal: 'pastel' }, lines: ['El Rey nos cobra impuestos por todo. Ayer tiramos su té al puerto. Los peces no durmieron.', 'Los cobradores embisten derecho: saltalos y que le cobren al aire.'] },
     imprentero: { sprite: 'imprentero', gift: { heal: 'te' }, lines: ['Imprimo panfletos: "todos los hombres son creados iguales". Abajo, en letra chica, hay excepciones. Estoy discutiendo eso.', 'Juntá los panfletos sueltos. La tinta sale carísima. Por el impuesto.'] },
     miliciana2: { sprite: 'miliciana', gift: { ammo: true }, lines: ['El Rey vino en persona, flotando en una taza gigante. No preguntes.', 'A la hora del té se queda quieto con el meñique levantado. Subite y dale con lo que tengas a mano.'] }
@@ -148,6 +149,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       a: { enemy: 'casaca' }, g: { enemy: 'granaderoReal' }, t: { enemy: 'cobrador' }, l: { enemy: 'lord' }, q: { enemy: 'taza' }, K: { enemy: 'cobradorMayor' },
       N: { npc: 'miliciana' }, G: { npc: 'imprentero' }, S: { npc: 'miliciana2' }, W: { weapon: 'mosquete' }, A: { weapon: 'ballesta' }, R: { weapon: 'rifle', rift: true },
       '1': { decor: 'estandarte' }, '2': { decor: 'cortadera' }
@@ -156,7 +158,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    N    2     W    g     1',
+        '  P  & N    2     W    g     1',
         '#*',
         '#*'
       ],

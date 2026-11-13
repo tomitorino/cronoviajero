@@ -135,6 +135,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, gift: { ammo: true }, lines: ['Si ves un aro celeste alrededor de un jefe, es un escudo: las balas rebotan. Un golpe de cerca lo rompe.', 'Lo sé porque le tiré de todo a ese dragón. Desde lejos. Muy lejos.'] },
     obrera: { sprite: 'obrera', gift: { heal: 'dumpling' }, lines: ['Llevo veinte años en la Muralla. El Emperador quiere que se vea desde la luna.', 'Nadie fue a la luna a fijarse. Igual, mejor no discutirle.'] },
     monje: { sprite: 'monje', gift: { heal: 'te' }, lines: ['El kung fu enseña paciencia. La burocracia imperial, también.', 'Los funcionarios embisten derecho: saltalos. Los alquimistas tiran en arco: acercate.'] },
     monje2: { sprite: 'monje', gift: { ammo: true }, lines: ['El Emperador vuela en su dragón buscando la vida eterna.', 'Cuando se pone a brindar con mercurio, queda mareado: ahí pegale.'] }
@@ -179,6 +180,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       t: { enemy: 'terracota' }, b: { enemy: 'ballesteroTerra' }, a: { enemy: 'alquimista' }, f: { enemy: 'funcionario' }, d: { enemy: 'dragonPapel' }, K: { enemy: 'generalTerra' },
       N: { npc: 'obrera' }, G: { npc: 'monje' }, S: { npc: 'monje2' }, W: { weapon: 'arco' }, A: { weapon: 'espada' }, R: { weapon: 'mosquete', rift: true },
       '1': { decor: 'vasija' }, '2': { decor: 'estandarte' }
@@ -187,7 +189,7 @@ CV.stage({
       [
         '                c',
         '              ====',
-        '  P    N    1     W    t     2',
+        '  P  & N    1     W    t     2',
         '#*',
         '#*'
       ],

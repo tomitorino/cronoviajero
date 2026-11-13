@@ -124,10 +124,10 @@
       CV.text(g, s.year, W - 10, 170, { align: 'right', color: '#94b0c2', shadow: false });
       if (this.msg) CV.wrap(this.msg, 60).forEach((l, i) => CV.text(g, l, 10, 182 + i * 10, { color: '#e03c32', shadow: false }));
       else CV.wrap(s.blurb, 60).slice(0, 2).forEach((l, i) => CV.text(g, l, 10, 181 + i * 10, { color: '#f4f4f4', shadow: false }));
-      const label = { done: '✓ COMPLETADA - ENTER: REJUGAR', open: '→ ENTER: VIAJAR', locked: 'BLOQUEADA', soon: 'PRÓXIMAMENTE' }[stt];
+      const label = { done: '✓ ENTER: REJUGAR', open: '→ ENTER: VIAJAR', locked: 'BLOQUEADA', soon: 'PRÓXIMAMENTE' }[stt];
       CV.text(g, label, 10, 203, { color: { done: '#ffcd75', open: '#a7f070', locked: '#566c86', soon: '#566c86' }[stt], shadow: false });
       const sd = CV.stages[s.id];
-      if (sd) { const tot = CV.levelRows(sd.level).join('').split('c').length - 1, got = (CV.save.data.collect[s.id] || []).length; CV.text(g, 'JEFE: ' + s.boss + '   ' + got + '/' + tot, W - 10, 203, { align: 'right', color: '#94b0c2', shadow: false }); }
+      if (sd) { const tot = CV.levelRows(sd.level).join('').split('c').length - 1, got = (CV.save.data.collect[s.id] || []).length; const room = 59 - label.length - (got + '/' + tot).length - 9, bn = s.boss.length > room ? s.boss.slice(0, room - 3) + '...' : s.boss; CV.text(g, 'JEFE: ' + bn + '   ' + got + '/' + tot, W - 10, 203, { align: 'right', color: '#94b0c2', shadow: false }); }
       else CV.text(g, 'JEFE: ' + s.boss, W - 10, 203, { align: 'right', color: '#566c86', shadow: false });
     }
   };

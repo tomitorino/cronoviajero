@@ -79,6 +79,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['La pieza norteamericana quedó en el shopping. La dejé en garantía. La garantía venció. Qué ironía.', 'Ojo adentro: entrás por una pieza y salís con una freidora de aire.'] },
     cajera: { sprite: 'cajera', gift: { heal: 'hamburguesa' }, lines: ['Tengo tres trabajos. El shopping dice que soy "emprendedora de mi tiempo".', 'El descuento es del 70%. El lunes subieron todo 80%. Hacé la cuenta, yo no puedo: estoy en horario.'] },
     repositor: { sprite: 'repositor', gift: { heal: 'energia' }, lines: ['Repongo góndolas que se vacían en cuatro segundos. Es como achicar el mar con un vaso de oferta.', 'Los carritos autónomos no frenan: saltalos. Los influencers tiran corazones rectos.'] },
     repositor2: { sprite: 'repositor', gift: { ammo: true }, lines: ['El Shopping está vivo y tiene hambre. Las balas le hacen menos: es todo vidrio blindado. Dale de cerca, en la puerta.', 'Cuando anuncia una "liquidación total" abre la boca un rato largo. Ese es el momento.'] }
@@ -126,6 +127,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       y: { enemy: 'ofertado' }, a: { enemy: 'influencer' }, p: { enemy: 'guardia' }, b: { enemy: 'lanzacajas' }, r: { enemy: 'carrito' }, q: { enemy: 'dronEnvio' }, K: { enemy: 'gerenteRegional' },
       N: { npc: 'cajera' }, G: { npc: 'repositor' }, S: { npc: 'repositor2' }, W: { weapon: 'rifle' }, A: { weapon: 'ametralladora' }, R: { weapon: 'laser', rift: true },
       '1': { decor: 'tacho' }, '2': { decor: 'neon' }
@@ -134,7 +136,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    N    1     W    y     2',
+        '  P  & N    1     W    y     2',
         '#*',
         '#*'
       ],

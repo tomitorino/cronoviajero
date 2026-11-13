@@ -152,6 +152,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['Cada 6 reliquias ganás un corazón. Y con reliquias mejorás las armas (tecla I).', 'Yo las llamo "reliquias". Los arqueólogos las llaman "evidencia".'] },
     obrero1: { sprite: 'obrero', gift: { heal: 'panmiel' }, lines: ['Estamos de paro. El faraón debe tres lunas de pan y cebolla.', '"Proyecto prioritario", dice. Veinte años llevamos. Y es una tumba PARA ÉL.'] },
     obrero2: { sprite: 'obrero', gift: { heal: 'datiles' }, lines: ['Las momias son lentas: pegales y alejate, sin apuro.', 'Ojo con los cocodrilos: primero se quedan quietos, después embisten.'] },
     obrero3: { sprite: 'obrero', gift: { ammo: true }, lines: ['La Esfinge hace acertijos. Mientras piensa la pregunta, se distrae: ahí pegale.', 'Nadie acertó nunca. Para mí que no sabe las respuestas.'] }
@@ -196,6 +197,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       k: { enemy: 'momia' }, e: { enemy: 'escarabajo' }, a: { enemy: 'escriba' }, q: { enemy: 'langosta' }, z: { enemy: 'cocodrilo' }, K: { enemy: 'momiaJefa' },
       N: { npc: 'obrero1' }, G: { npc: 'obrero2' }, S: { npc: 'obrero3' }, L: { weapon: 'lanza' }, W: { weapon: 'honda' }, R: { weapon: 'rifle', rift: true },
       '1': { decor: 'vasija' }, '2': { decor: 'huesos' }
@@ -204,7 +206,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    1    N        e      1',
+        '  P  & 1    N        e      1',
         '#*',
         '#*'
       ],

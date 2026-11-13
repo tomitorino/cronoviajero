@@ -32,6 +32,11 @@ CV.defineSprites({
     }
   },
 
+  // el Dr. Cronos: inventó la máquina, la vendió usada y no acepta devoluciones
+  profe: {
+    rows: ['................', '...c.cccc.c', '..cccccccccc', '..ccjjjjjjcc', '...j0bj0bj', '...jjjjjjj', '....jcccj', '...cccccccc', '..ccc9cc9ccc', '..cjcccccccj', '....cccccc', '....cccccc', '....cc..cc', '....ff..ff', '....ff..ff', '...000..000']
+  },
+
   // ---- armas (16x8, empuñadura a la izquierda) ----
   w_garrote: { rows: ['................', '...........ggg..', '.........ggigig.', '.hhhhhhhgggggig.', '.hhhhhhhggggggg.', '.........ggiggg.', '...........ggg..', '................'] },
   w_lanza: { rows: ['................', '................', '.............s..', 'hhhhhhhhhhhhhsss', '.............s..', '................', '................', '................'] },

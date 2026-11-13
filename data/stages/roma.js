@@ -147,6 +147,10 @@ CV.stage({
     campeon: { sprite: 'campeon', ai: 'chase', mini: true, heavy: true, scale: 2, w: 22, h: 28, hp: 45, speed: 30, chase: 70, jump: 270, hop: .012, sight: 150, sightY: 70, paradox: false, drop: { weapon: 'arco' }, barks: ['¡Soy Máximo Exageradus!', '¿No se entretienen?'] }
   },
 
+  npcs: {
+    profe: { sprite: 'profe', chain: true, gift: { ammo: true }, lines: ['Acá el tiempo se abre en cuatro ramas. Cada una termina en una pieza de la máquina.', 'Con 3 de 4 se abre el tramo final. La cuarta es "contenido extra". Así lo vendí.'] }
+  },
+
   boss: {
     name: 'EMPERADOR CHIFLADUS', mul: { melee: 1.3, ranged: 0.9 }, sprite: 'emperador', scale: 2, w: 40, h: 46, hp: 130, mode: 'hover', rest: 1,
     anchors: [[.75, .42], [.25, .42], [.5, .5], [.6, .32], [.4, .32]],
@@ -184,6 +188,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       l: { enemy: 'legionario' }, v: { enemy: 'velite' }, g: { enemy: 'gladiador' }, n: { enemy: 'leon' }, G: { enemy: 'campeon' },
       E: { weapon: 'espada' }, K: { weapon: 'ballesta', rift: true },
       '1': { decor: 'columna' }, '2': { decor: 'estandarte' }
@@ -192,7 +197,7 @@ CV.stage({
       [
         '                 c',
         '               =====',
-        '  P    1    E         l    1',
+        '  P  & 1    E         l    1',
         '#*',
         '#*'
       ],

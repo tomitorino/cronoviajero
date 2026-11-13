@@ -156,6 +156,14 @@ CV.stage({
   },
 
   // --- jefe: fases por % de vida; cada fase recorre su 'pattern' de ataques ---
+  npcs: {
+    profe1: { sprite: 'profe', chain: true, lines: ['¡Vos! ¡El que compró mi máquina! Soy el Dr. Cronos, inventor. No acepto devoluciones.', 'Te movés con las flechas o A/D. Saltás con Espacio. Pegás con X. Rodás con C.', 'Rodando no te pegan. Lo descubrí yo. Corriendo. Mucho.'] },
+    profe2: { sprite: 'profe', chain: true, lines: ['En el aire podés saltar OTRA vez: doble salto. Sirve para los pozos.', 'Lo inventé cayéndome de un volcán. La ciencia avanza así.'] },
+    profe3: { sprite: 'profe', chain: true, lines: ['¿Agarraste la lanza? Con Q y E cambiás de arma: Q la anterior, E la siguiente.', 'Con I ves el inventario. Ahí gastás reliquias en mejorar armas. Yo cobraría comisión, pero no hay cajero.'] },
+    profe4: { sprite: 'profe', chain: true, lines: ['Arriba hay una grieta con un arma de OTRA época. Pega muchísimo más.', 'Pero usarla acá llena la barra de PARADOJA. Si se llena, la Historia se enoja y aparecen cosas que no deberían.', 'Legalmente no te la puedo recomendar. Extraoficialmente: es divertidísima.'] },
+    profe5: { sprite: 'profe', chain: true, lines: ['Adelante hay un jefe. Cuando su barra se pone AMARILLA está distraído: ahí recibe el doble.', 'Las banderas guardan tu avance. La comida cura. La garantía, no.', 'Suerte. Yo me adelanto a la próxima época. Conozco un atajo. No, no te lo paso.'] }
+  },
+
   boss: {
     name: 'T-REX', mul: { ranged: 1.3 }, sprite: 'trex', scale: 2, w: 44, h: 46, hp: 90, walk: 22, rest: 1,
     attacks: {
@@ -197,6 +205,7 @@ CV.stage({
     height: 14,
     legend: {
       a: { enemy: 'cavernicola' }, s: { enemy: 'hondero' }, r: { enemy: 'raptor' }, q: { enemy: 'mosquito' }, R: { enemy: 'raptorAlfa' },
+      T: { npc: 'profe1' }, U: { npc: 'profe2' }, V: { npc: 'profe3' }, Y: { npc: 'profe4' }, J: { npc: 'profe5' },
       L: { weapon: 'lanza' }, M: { weapon: 'mosquete', rift: true },
       '1': { decor: 'helecho' }, '2': { decor: 'huesos' }
     },
@@ -204,14 +213,14 @@ CV.stage({
       [
         '            c',
         '           ===        L',
-        '  P     1        a   ###  2',
+        '  P  T  1        a   ###  2',
         '#*',
         '#*'
       ],
       [
         '                c',
         '        ==     ===',
-        '   r     1           r    h',
+        ' U r     1           r    h',
         '######   ####   #*',
         '######   ####   #*'
       ],
@@ -221,7 +230,7 @@ CV.stage({
         '               s',
         '        c    #####      c',
         '       ###   #####     ###',
-        '  a      2   #####  ^^      a',
+        '  a    V 2   #####  ^^      a',
         '#*',
         '#*'
       ],
@@ -232,7 +241,7 @@ CV.stage({
         '                     ==      q',
         '                 ==',
         '             ==',
-        '   F     r    1   a',
+        '   F     r    1   a   Y',
         '#*',
         '#*'
       ],
@@ -266,7 +275,7 @@ CV.stage({
         '         q         q',
         '              c',
         '    ==      =====      ==',
-        '  s      ^^    a    ^^      1',
+        '  s  J   ^^    a    ^^      1',
         '#*',
         '#*'
       ],

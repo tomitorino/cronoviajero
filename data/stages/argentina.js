@@ -211,6 +211,10 @@ CV.stage({
     colectivo: { sprite: 'colectivo', ai: 'charger', mini: true, heavy: true, scale: 2, w: 56, h: 28, hp: 60, speed: 14, charge: 180, tele: .7, rest: 1.2, sight: 170, sightY: 60, animSpeed: 14, paradox: false, drop: { weapon: 'ametralladora' }, barks: ['¡Al fondo que hay lugar!', '¡FUERA DE SERVICIO!', '¡Un pasito más, por favor!'] }
   },
 
+  npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['La pieza latinoamericana la empeñé en 1989. Con la inflación, hoy vale un alfajor.', 'Triple. Pero un alfajor.'] }
+  },
+
   boss: {
     name: 'EL JEFE DE LOS MOTOCHORROS', mul: { melee: 0.85, ranged: 1.3 }, sprite: 'motojefe', scale: 2, w: 48, h: 48, hp: 200, walk: 20, rest: 1,
     attacks: {
@@ -248,6 +252,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       t: { enemy: 'motochorro' }, T: { enemy: 'trapito' }, p: { enemy: 'punguista' }, d: { enemy: 'repartidor' }, V: { enemy: 'vendedor' }, C: { enemy: 'colectivo' },
       W: { weapon: 'ametralladora' },
       '1': { decor: 'semaforo' }, '2': { decor: 'tacho' }
@@ -256,7 +261,7 @@ CV.stage({
       [
         '              c',
         '            ====',
-        '  P   1          T      2   p',
+        '  P  &1          T      2   p',
         '#*',
         '#*'
       ],

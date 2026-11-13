@@ -71,6 +71,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['Arma de otra época contra un jefe: la paradoja sube el triple. Y si se llena, el jefe SE CURA.', 'Usala cuando la barra esté amarilla. O no me hagas caso: nadie leyó el manual. No hay manual.'] },
     astronauta: { sprite: 'astronauta', gift: { heal: 'pastel' }, lines: ['Desde arriba no se ven las fronteras. Se lo dije al general. Me mandó a revisar los ojos.', 'Los espías disparan recto. Los generales tiran misiles en arco: no te quedes quieto.'] },
     cosmonauta: { sprite: 'cosmonauta', gift: { heal: 'energia' }, lines: ['Con el astronauta de ellos jugamos al ajedrez por radio. Los jefes creen que son códigos.', 'Gastaron millones en una lapicera que escriba en el espacio. Nosotros llevamos un lápiz.'] },
     cientifico: { sprite: 'cientifico', gift: { ammo: true }, lines: ['El Cohete lo pilotean dos generales, uno de cada bando. Comparten el miedo.', 'Blindaje abajo no tiene: dale de lejos. Y cuando discuten por el botón rojo, quedan regalados.'] }
@@ -116,6 +117,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       a: { enemy: 'espia' }, y: { enemy: 'agente' }, b: { enemy: 'generalito' }, p: { enemy: 'grisEscapado' }, q: { enemy: 'platillo' }, K: { enemy: 'jefeEspias' },
       N: { npc: 'astronauta' }, G: { npc: 'cosmonauta' }, S: { npc: 'cientifico' }, W: { weapon: 'rifle' }, A: { weapon: 'ametralladora' }, R: { weapon: 'laser', rift: true },
       '1': { decor: 'antena' }, '2': { decor: 'cactus' }
@@ -124,7 +126,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    N    2     W    y     1',
+        '  P  & N    2     W    y     1',
         '#*',
         '#*'
       ],

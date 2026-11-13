@@ -119,6 +119,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['La pieza asiática es el condensador. La cambié por un vale de karaoke.', 'Me arrepiento poco. Canté dos temas. Me aplaudió una expendedora.'] },
     oficinista: { sprite: 'oficinista', gift: { heal: 'energia' }, lines: ['Zzz... ¿eh? No estoy durmiendo. Estoy descansando la vista. Desde el martes.', 'Perdí el último tren. Otra vez. Ya me conocen en el hotel cápsula.'] },
     otaku: { sprite: 'otaku', gift: { heal: 'ramen' }, lines: ['¡Un viajero del tiempo! Como en la temporada 2. La 3 decayó, igual.', 'Las expendedoras tiran latas rectas: saltalas. Los robots de ramen no frenan: correte.'] },
     otaku2: { sprite: 'otaku', gift: { ammo: true }, lines: ['El jefe final es de manual: tiene fases, barra de vida y momento vulnerable.', 'Cuando el Presidente canta su tema preferido cierra los ojos. Son catorce minutos. Dale ahí.'] }
@@ -165,6 +166,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       g: { enemy: 'gerente' }, t: { enemy: 'mascota' }, e: { enemy: 'expendedora' }, r: { enemy: 'robotRamen' }, q: { enemy: 'dronIdol' }, K: { enemy: 'trabajin' },
       N: { npc: 'oficinista' }, G: { npc: 'otaku' }, S: { npc: 'otaku2' }, W: { weapon: 'rifle' }, A: { weapon: 'ametralladora' }, R: { weapon: 'laser', rift: true },
       '1': { decor: 'neon' }, '2': { decor: 'antena' }
@@ -173,7 +175,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    N    1     W    t     2',
+        '  P  & N    1     W    t     2',
         '#*',
         '#*'
       ],

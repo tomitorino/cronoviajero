@@ -108,6 +108,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, gift: { ammo: true }, lines: ['Consejo de inventor: guardá comida para los jefes y mejorá las armas ANTES, no durante.', 'Yo me quedo acá. Me ofrecieron trabajo en atención al cliente de la nave. Mi vocación: no atender.'] },
     astronauta: { sprite: 'astronauta', gift: { heal: 'gelatina' }, lines: ['Me dijeron "es un pequeño paso". Hace seis horas que hago la cola de migraciones.', 'La gelatina de astronauta no tiene gusto a nada. Pero cura.'] },
     limpiador: { sprite: 'limpiador', gift: { ammo: true }, lines: ['Trescientos años limpiando la nave nodriza. Pedí aumento: "lo estamos evaluando".', 'La nave esquiva mucho. Esperá a que atienda el teléfono: ahí se queda quieta.'] },
     limpiador2: { sprite: 'limpiador', gift: { heal: 'ramen' }, lines: ['Los magnates vienen de paseo, dejan todo sucio y dicen que "abrieron camino".', 'Ojo con el rayo: primero marca el piso, después baja.'] }
@@ -154,6 +155,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       k: { enemy: 'alien' }, a: { enemy: 'alienTirador' }, b: { enemy: 'magnate' }, q: { enemy: 'ovni' }, d: { enemy: 'aduanero' }, K: { enemy: 'inspector' },
       N: { npc: 'astronauta' }, G: { npc: 'limpiador' }, S: { npc: 'limpiador2' }, W: { weapon: 'laser' }, A: { weapon: 'ametralladora' },
       '1': { decor: 'antena' }, '2': { decor: 'neon' }
@@ -162,7 +164,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    1    N     W    k     1',
+        '  P  & 1    N     W    k     1',
         '#*',
         '#*'
       ],

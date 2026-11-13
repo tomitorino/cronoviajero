@@ -231,6 +231,7 @@ CV.stage({
 
   // Aliados: dan un consejo (globo) y una ayuda (ítem) la primera vez que te acercás.
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['Parado en una plataforma finita, con ↓ te dejás caer.', 'Lo descubrí huyendo de un ñandú. No hagas preguntas. El ñandú tampoco las hizo.'] },
     gaucho: { sprite: 'gaucho', gift: { heal: 'mate' }, lines: ['¡Buenas, paisano del futuro! Tome un mate, que la zanja viene despacio pero viene.', 'Esos generales dibujan rayas en un papel y después se enojan con el pasto.', 'Si una vaca lo mira fijo, hágase a un lado. Tiene prioridad de paso.'] },
     baqueana: { sprite: 'baqueana', gift: { heal: 'tortafrita' }, lines: ['Soy Ñamku. Le dicen "desierto" a esta tierra. Mirá alrededor: vivimos acá hace miles de años.', 'La zanja no sabe doblar ni subir. Usá las alturas y no te quedes quieto.'] },
     baqueana2: { sprite: 'baqueana', gift: { ammo: true }, lines: ['El General pelea con líneas. Cuando dibuje una, no te quedes encima. Las líneas son de él; la tierra, no.', 'Llevate esto. Y devolvé el futuro como lo encontraste.'] }
@@ -274,13 +275,14 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       f: { enemy: 'fortinero' }, b: { enemy: 'burocrata' }, v: { enemy: 'vaca' }, n: { enemy: 'nandu' }, C: { enemy: 'caudillo' },
       g: { npc: 'gaucho' }, w: { npc: 'baqueana' }, y: { npc: 'baqueana2' },
       '1': { decor: 'cortadera' }
     },
     segments: [
       [
-        '  P    1      g           1   f',
+        '  P  & 1      g           1   f',
         '#*',
         '#*'
       ],

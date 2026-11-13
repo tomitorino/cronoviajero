@@ -113,6 +113,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['A medida que avanza la Historia, más gente anda armada. Le dicen "progreso".', 'Rodá con C cuando disparen: rodando no te pegan. A mí sí. Tengo la cadera de 1890.'] },
     raso: { sprite: 'raso', gift: { heal: 'croissant' }, lines: ['Nos dijeron "volvemos para Navidad". No dijeron de qué año.', 'Marchamos hasta Rusia. A pie. En invierno. Idea del bajito.'] },
     cocinera: { sprite: 'cocinera', gift: { heal: 'queso' }, lines: ['Un ejército marcha sobre su estómago. Y este no come desde el martes.', 'Los húsares embisten derecho. Un saltito y pasan de largo.'] },
     raso2: { sprite: 'raso', gift: { ammo: true }, lines: ['Al Emperador no le digas "bajito". Se distrae gritando y ahí le podés pegar.', 'El caballo es buenísimo. Lástima el jinete.'] }
@@ -157,6 +158,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       k: { enemy: 'granadero' }, a: { enemy: 'fusilero' }, z: { enemy: 'husar' }, q: { enemy: 'paloma' }, K: { enemy: 'mariscal' },
       N: { npc: 'raso' }, G: { npc: 'cocinera' }, S: { npc: 'raso2' }, E: { weapon: 'espada' }, W: { weapon: 'mosquete' }, R: { weapon: 'ametralladora', rift: true },
       '1': { decor: 'estandarte' }, '2': { decor: 'huesos' }
@@ -165,7 +167,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    1    N     W    k     1',
+        '  P  & 1    N     W    k     1',
         '#*',
         '#*'
       ],

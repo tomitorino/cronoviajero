@@ -70,6 +70,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, gift: { ammo: true }, lines: ['El Fin del Tiempo. Si la Entidad parece derrotada... desconfiá. Yo no dije nada.', '¿El fusible? Revisé toda la máquina menos el fusible. Para eso está el cliente.', 'Si salís de esta, puntuame con cinco estrellas. Es lo mínimo.'] },
     yo1: { sprite: 'hero', gift: { heal: 'asado' }, lines: ['Hola. Soy vos, de acá a un rato. Sí, sobrevivís. Bueno, yo sobreviví. Vos no sé.', 'Tomá un choripán. Me lo dio otro yo. No preguntes de dónde salió el primero.'] },
     yo2: { sprite: 'hero', gift: { ammo: true }, lines: ['Soy vos de más adelante todavía. Consejo: cuando parezca que ganaste, NO festejes.', 'En serio. No festejes. Yo festejé.'] },
     yo3: { sprite: 'hero', gift: { heal: 'mate' }, lines: ['Soy vos de ayer. Vine a ver cómo terminaba. ¿Termina bien? No me digas. Decime. No.', 'La Entidad se queda quieta cuando intenta entender sus propias reglas. Ahí dale.'] }
@@ -144,6 +145,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       r: { enemy: 'raptor' }, t: { enemy: 'momia' }, o: { enemy: 'hoplita' }, l: { enemy: 'legionario' }, k: { enemy: 'caballero' }, g: { enemy: 'granadero' },
       s: { enemy: 'soldado' }, u: { enemy: 'turista' }, d: { enemy: 'dron' }, a: { enemy: 'alienTirador' }, q: { enemy: 'harpia' }, v: { enemy: 'ovni' }, K: { enemy: 'mecha' },
       N: { npc: 'yo1' }, G: { npc: 'yo2' }, S: { npc: 'yo3' }, W: { weapon: 'laser' }, A: { weapon: 'ametralladora' },
@@ -153,7 +155,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    1    N     A    r   t  2',
+        '  P  & 1    N     A    r   t  2',
         '#*',
         '#*'
       ],

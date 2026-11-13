@@ -104,6 +104,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['Un arma mejorada pega más y carga más balas. Tecla I, elegís el arma y X para mejorar.', 'No hay reembolso de reliquias. Está en la letra chica. La letra chica la escribí después.'] },
     maquetista: { sprite: 'maquetista', gift: { heal: 'sushi' }, lines: ['Tres meses armando la ciudad a escala. En pantalla dura cuatro segundos.', 'Después viene el del traje y la pisa. Es mi trabajo y lo odio. Y lo amo.'] },
     doble: { sprite: 'doble', gift: { heal: 'ramen' }, lines: ['Soy el doble de riesgo del monstruo. Sí, el traje tiene doble.', 'Los robots de lata embisten sin ver nada. Saltalos, pobres.'] },
     maquetista2: { sprite: 'maquetista', gift: { ammo: true }, lines: ['El Kaiju es un tal Haruo. Buen tipo. Dieciséis horas por día ahí adentro.', 'Cuando se queja de la cremallera, se queda quieto. Aprovechá. No le pegues muy fuerte.'] }
@@ -149,6 +150,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       a: { enemy: 'extra' }, y: { enemy: 'yakuza' }, r: { enemy: 'robotLata' }, q: { enemy: 'avioncito' }, b: { enemy: 'luces' }, K: { enemy: 'productor' },
       N: { npc: 'maquetista' }, G: { npc: 'doble' }, S: { npc: 'maquetista2' }, W: { weapon: 'rifle' }, A: { weapon: 'ametralladora' }, R: { weapon: 'laser', rift: true },
       '1': { decor: 'tacho' }, '2': { decor: 'semaforo' }
@@ -157,7 +159,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    N    2     W    y     1',
+        '  P  & N    2     W    y     1',
         '#*',
         '#*'
       ],

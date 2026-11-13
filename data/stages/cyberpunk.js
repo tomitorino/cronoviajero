@@ -173,6 +173,10 @@ CV.stage({
     mecha: { sprite: 'mecha', ai: 'chase', mini: true, heavy: true, scale: 2, w: 22, h: 30, hp: 80, speed: 26, chase: 58, sight: 160, sightY: 70, paradox: false, barks: ['MECHA-SEGURIDAD 3000: SONRÍA.', 'RESISTIRSE ANULA LA GARANTÍA.'] }
   },
 
+  npcs: {
+    profe: { sprite: 'profe', chain: true, gift: { ammo: true }, lines: ['En este futuro me hicieron un juicio colectivo. Doce mil viajeros varados. Gané: el juez era yo de joven.', 'Al final del tiempo hay algo despierto. Yo no fui. Bueno: técnicamente fuiste vos.'] }
+  },
+
   boss: {
     name: 'SYNERG-IA, IA CORPORATIVA', mul: { melee: 1.3, ranged: 0.85 }, sprite: 'ia', scale: 2, w: 44, h: 50, hp: 240, mode: 'hover', rest: .9,
     anchors: [[.75, .4], [.25, .4], [.5, .48], [.5, .3], [.65, .34], [.35, .34]],
@@ -212,6 +216,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       o: { enemy: 'dron' }, k: { enemy: 'robopoli' }, j: { enemy: 'hacker' }, u: { enemy: 'roomba' }, K: { enemy: 'mecha' },
       Z: { weapon: 'laser' },
       '1': { decor: 'neon' }, '2': { decor: 'antena' }
@@ -220,7 +225,7 @@ CV.stage({
       [
         '             c',
         '           ====',
-        '  P   1   Z       u      1   k',
+        '  P  &1   Z       u      1   k',
         '#*',
         '#*'
       ],

@@ -494,6 +494,13 @@
     for (const n of G.npcs) {
       const near = Math.abs(p.x - n.x) < 38 && Math.abs(p.y - n.y) < 34;
       n.face = p.x < n.x ? -1 : 1;
+      if (n.def.chain) { // habla en cadena: dice sus líneas una tras otra (tutorial del Dr. Cronos)
+        const ls = n.def.lines;
+        if (near && !n.near && (n.ci === undefined || n.ci >= ls.length)) { n.ci = n.ci === undefined ? 0 : ls.length - 1; n.ct = 0; }
+        if (near && n.ci !== undefined && n.ci < ls.length && !G.dialog) { /* solo sigue hablando si te quedás cerca */ n.ct -= dt; if (n.ct <= 0) { G.say(n, ls[n.ci++], 5); n.ct = 4.6; sfx('talk'); } }
+        if (near && !n.gift && n.def.gift) { n.gift = true; const gf = n.def.gift; G.pickups.push(mkPick(gf.weapon ? 'weapon' : gf.ammo ? 'ammo' : 'heal', gf.weapon || gf.heal || 'ammo', n.x + 6 + n.face * 14, n.y - 4, false)); }
+        n.near = near; continue;
+      }
       if (near && !n.near) {
         const ls = n.def.lines; G.say(n, ls[n.said % ls.length], 4.2); n.said++; sfx('talk');
         if (!n.gift && n.def.gift) {

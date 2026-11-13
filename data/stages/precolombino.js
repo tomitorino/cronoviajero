@@ -173,6 +173,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, gift: { ammo: true }, lines: ['Si te quedás sin balas contra un jefe, cada tanto cae una caja. Es mi servicio de posventa.', 'El único. No llames al 0800: es mi sobrino y no atiende.'] },
     sabia: { sprite: 'sabia', gift: { heal: 'choclo' }, lines: ['Bienvenido, viajero. Este templo pone a prueba a los apurados: mirá el piso antes de pisarlo.', 'Los guardianes son de piedra: lentos, pero tercos. Como mi suegro.'] },
     sabia2: { sprite: 'sabia', gift: { heal: 'chocolate' }, lines: ['La Serpiente no es mala, es exigente. Si superás su prueba, te deja pasar.', 'Tomá, chocolate. El original, sin azúcar. De nada.'] }
   },
@@ -213,6 +214,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       e: { enemy: 'guardian' }, y: { enemy: 'llama' }, z: { enemy: 'serpiente' }, q: { enemy: 'murcielago' }, Y: { enemy: 'llamaAlfa' },
       A: { weapon: 'arco' }, N: { npc: 'sabia' }, S: { npc: 'sabia2' },
       '1': { decor: 'helecho' }, '2': { decor: 'idolo' }
@@ -221,7 +223,7 @@ CV.stage({
       [
         '              c',
         '            ====',
-        '  P   1    N        e    2',
+        '  P  &1    N        e    2',
         '#*',
         '#*'
       ],

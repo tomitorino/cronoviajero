@@ -170,6 +170,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['Mirá al lado de la barra del jefe: +GOLPES o +BALAS te dice a qué es débil.', 'Lo anotó un pasante. No le pagué. Era una experiencia formativa.'] },
     diogenes: { sprite: 'diogenes', gift: { heal: 'aceitunas' }, lines: ['Correte un poquito, que me tapás el sol.', 'Vivo en un barril. Sin expensas. El filósofo exitoso soy yo.'] },
     ariadna: { sprite: 'ariadna', gift: { ammo: true }, lines: ['Tomá, flechas. Y un consejo: el Minotauro embiste derecho. Saltalo o rodá.', 'Le di un hilo a un tal Teseo para salir del laberinto. Se lo olvidó en la entrada.'] },
     ariadna2: { sprite: 'ariadna', gift: { heal: 'uvas' }, lines: ['Cuando el toro se pierde y se pone a mirar el mapa, es tu momento.', 'El laberinto lo diseñó un arquitecto carísimo. Ni él sabe salir.'] }
@@ -213,6 +214,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       k: { enemy: 'hoplita' }, a: { enemy: 'arqueroGriego' }, q: { enemy: 'harpia' }, f: { enemy: 'filosofo' }, K: { enemy: 'ciclope' },
       N: { npc: 'diogenes' }, G: { npc: 'ariadna' }, S: { npc: 'ariadna2' }, W: { weapon: 'arco' }, R: { weapon: 'ametralladora', rift: true },
       '1': { decor: 'columna' }, '2': { decor: 'vasija' }
@@ -221,7 +223,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    1    N        k      1',
+        '  P  & 1    N        k      1',
         '#*',
         '#*'
       ],

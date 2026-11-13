@@ -106,6 +106,7 @@ CV.stage({
   },
 
   npcs: {
+    profe: { sprite: 'profe', chain: true, lines: ['La pieza europea es el regulador de siglos. Sin ella la máquina solo viaja a los martes.', 'La dejé acá de garantía por un café. El café estaba bueno. Carísimo, pero bueno.'] },
     huelga1: { sprite: 'huelguista', gift: { heal: 'croissant' }, lines: ['Estamos de huelga. Es martes. Pasá, pasá, el piquete es con el patrón, no con vos.', 'El alquiler subió porque todo el barrio ahora es hotel. Yo vivo en un folleto.'] },
     huelga2: { sprite: 'huelguista', gift: { heal: 'pizza' }, lines: ['Los mimos tiran cosas invisibles. Duelen igual. Nadie sabe cómo.', 'A las palomas no las mires a los ojos. Saben cosas.'] },
     huelga3: { sprite: 'huelguista', gift: { ammo: true }, lines: ['El vendedor de torrecitas se armó un robot con la mercadería que no vendió. Es enorme.', 'Cuando se pone a ofertar, baja la guardia. Regateale a golpes.'] }
@@ -151,6 +152,7 @@ CV.stage({
   level: {
     height: 14,
     legend: {
+      '&': { npc: 'profe' },
       k: { enemy: 'turista' }, a: { enemy: 'llavero' }, b: { enemy: 'mimo' }, q: { enemy: 'palomaUrb' }, K: { enemy: 'guiaTur' },
       N: { npc: 'huelga1' }, G: { npc: 'huelga2' }, S: { npc: 'huelga3' }, A: { weapon: 'ametralladora' }, W: { weapon: 'rifle' }, R: { weapon: 'laser', rift: true },
       '1': { decor: 'columna' }, '2': { decor: 'estandarte' }
@@ -159,7 +161,7 @@ CV.stage({
       [
         '               c',
         '             ====',
-        '  P    1    N     W    k     1',
+        '  P  & 1    N     W    k     1',
         '#*',
         '#*'
       ],
