@@ -181,7 +181,7 @@
     }
     if (G.portal) CV.drawPortal(g, G.portal.x, G.portal.y, G.portal.t);
     for (const k of G.pickups) drawPickup(g, k, t);
-    for (const n of G.npcs) { CV.spr(g, n.def.sprite, 'idle', n.x - 2, n.y + (Math.floor(t * 2 + n.x) % 2 ? 0 : 0), { flip: n.face < 0 }); if (!n.near && Math.floor(t * 3) % 2) CV.text(g, '!', n.x + 4, n.y - 10, { color: '#a7f070' }); }
+    for (const n of G.npcs) { CV.spr(g, n.def.sprite, 'idle', n.x - 2, n.y + (Math.floor(t * 2 + n.x) % 2 ? 0 : 0), { flip: n.face < 0 }); if (!n.near && !n.talked && Math.floor(t * 3) % 2) CV.text(g, '!', n.x + 4, n.y - 10, { color: '#a7f070' }); }
     for (const e of G.enemies) if (e.x > cx - 60 && e.x < cx + W + 60) drawEnemy(g, e, t);
     for (const c of G.corpses) { const s = CV.sprite(c.spr); CV.spr(g, c.spr, 'idle', c.x - s.w * c.scale / 2, c.y - s.h * c.scale, { flip: c.flip, rot: c.rot, scale: c.scale }); }
     if (G.boss) drawBoss(g, G.boss, t);

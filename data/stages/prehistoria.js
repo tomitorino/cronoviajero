@@ -157,11 +157,29 @@ CV.stage({
 
   // --- jefe: fases por % de vida; cada fase recorre su 'pattern' de ataques ---
   npcs: {
-    profe1: { sprite: 'profe', chain: true, lines: ['¡Vos! ¡El que compró mi máquina! Soy el Dr. Cronos, inventor. No acepto devoluciones.', 'Te movés con las flechas o A/D. Saltás con Espacio. Pegás con X. Rodás con C.', 'Rodando no te pegan. Lo descubrí yo. Corriendo. Mucho.'] },
-    profe2: { sprite: 'profe', chain: true, lines: ['En el aire podés saltar OTRA vez: doble salto. Sirve para los pozos.', 'Lo inventé cayéndome de un volcán. La ciencia avanza así.'] },
-    profe3: { sprite: 'profe', chain: true, lines: ['¿Agarraste la lanza? Con Q y E cambiás de arma: Q la anterior, E la siguiente.', 'Con I ves el inventario. Ahí gastás reliquias en mejorar armas. Yo cobraría comisión, pero no hay cajero.'] },
-    profe4: { sprite: 'profe', chain: true, lines: ['Arriba hay una grieta con un arma de OTRA época. Pega muchísimo más.', 'Pero usarla acá llena la barra de PARADOJA. Si se llena, la Historia se enoja y aparecen cosas que no deberían.', 'Legalmente no te la puedo recomendar. Extraoficialmente: es divertidísima.'] },
-    profe5: { sprite: 'profe', chain: true, lines: ['Adelante hay un jefe. Cuando su barra se pone AMARILLA está distraído: ahí recibe el doble.', 'Las banderas guardan tu avance. La comida cura. La garantía, no.', 'Suerte. Yo me adelanto a la próxima época. Conozco un atajo. No, no te lo paso.'] }
+    profe1: { sprite: 'profe', chain: true, dialog: [
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: '¡Vos! ¡El que compró mi máquina! Soy el Dr. Cronos, inventor. No acepto devoluciones.' },
+      { who: 'Viajero', text: '¿Por qué no se mueve nada? Ese raptor quedó congelado en el aire.' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Pausé el tiempo para explicarte un par de cosas. La máquina la armé yo. La cuarta pared, también.' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Te movés con las flechas o A/D. Saltás con Espacio, y en el aire podés saltar OTRA vez. Lo inventé cayéndome de un volcán.' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Pegás con X y rodás con C. Mientras rodás no te pegan.' },
+      { who: 'Viajero', text: '¿Y si me caigo a un pozo?' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Te morís. Volvés a la última bandera y los bichos que dejaste vivos se recuperan. No lo diseñé yo. Bueno, sí.' }
+    ] },
+    profe2: { sprite: 'profe', chain: true, dialog: [
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Pausa técnica. ¿Agarraste la lanza de allá atrás? Con Q y E cambiás de arma: Q la anterior, E la siguiente.' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Con I abrís el inventario. Ahí gastás reliquias en mejorar las armas: más daño, más alcance, más balas.' },
+      { who: 'Viajero', text: '¿Y las reliquias de dónde salen?' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Están tiradas por toda la Historia. Yo les digo "reliquias". Los museos les dicen "robo".' }
+    ] },
+    profe3: { sprite: 'profe', chain: true, dialog: [
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Paro el tiempo otra vez, que esto es importante. Y porque más adelante hay un raptor del tamaño de un colectivo.' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Vas a encontrar grietas con armas de OTRAS épocas. Pegan muchísimo más que las de acá.' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Pero usarlas llena la barra de PARADOJA. Si se llena, la Historia se enoja y aparecen cosas que no deberían estar.' },
+      { who: 'Viajero', text: '¿Y me las puedo quedar?' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'No. Al cruzar el portal desaparecen: cada arma vuelve a su época. Política de la empresa. La empresa soy yo.' },
+      { who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: 'Lo último: cuando la barra de un jefe se pone AMARILLA está distraído y recibe el doble. Ya está. Despauso. Corré.' }
+    ] }
   },
 
   boss: {
@@ -205,7 +223,7 @@ CV.stage({
     height: 14,
     legend: {
       a: { enemy: 'cavernicola' }, s: { enemy: 'hondero' }, r: { enemy: 'raptor' }, q: { enemy: 'mosquito' }, R: { enemy: 'raptorAlfa' },
-      T: { npc: 'profe1' }, U: { npc: 'profe2' }, V: { npc: 'profe3' }, Y: { npc: 'profe4' }, J: { npc: 'profe5' },
+      T: { npc: 'profe1' }, V: { npc: 'profe2' }, Y: { npc: 'profe3' },
       L: { weapon: 'lanza' }, M: { weapon: 'mosquete', rift: true },
       '1': { decor: 'helecho' }, '2': { decor: 'huesos' }
     },
@@ -220,7 +238,7 @@ CV.stage({
       [
         '                c',
         '        ==     ===',
-        ' U r     1           r    h',
+        ' V r     1           r    h',
         '######   ####   #*',
         '######   ####   #*'
       ],
@@ -230,7 +248,7 @@ CV.stage({
         '               s',
         '        c    #####      c',
         '       ###   #####     ###',
-        '  a    V 2   #####  ^^      a',
+        '  a      2   #####  ^^  Y   a',
         '#*',
         '#*'
       ],
@@ -241,7 +259,7 @@ CV.stage({
         '                     ==      q',
         '                 ==',
         '             ==',
-        '   F     r    1   a   Y',
+        '   F     r    1   a',
         '#*',
         '#*'
       ],
@@ -275,7 +293,7 @@ CV.stage({
         '         q         q',
         '              c',
         '    ==      =====      ==',
-        '  s  J   ^^    a    ^^      1',
+        '  s      ^^    a    ^^      1',
         '#*',
         '#*'
       ],

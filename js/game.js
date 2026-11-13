@@ -22,7 +22,7 @@
     G.bossIntroSeen = false;
     const p = G.player = {
       x: 32, y: 32, w: 10, h: 14, vx: 0, vy: 0, face: 1, onGround: false, hp: 6 + CV.save.hearts(), maxHp: 6 + CV.save.hearts(), coyote: 0, buffer: 0, jumps: 0,
-      rollT: 0, rollCd: 0, atkT: 0, atkCd: 0, inv: 0, dead: 0, drop: 0, anim: 0, weapons: sd.weapons.filter(w => CV.weapons[w]), wi: 0, ammo: {}
+      rollT: 0, rollCd: 0, atkT: 0, atkCd: 0, inv: 0, dead: 0, drop: 0, anim: 0, weapons: sd.weapons.filter(w => CV.weapons[w] && CV.weapons[w].tech <= (st.tech || 0)), wi: 0, ammo: {}
     };
     if (!p.weapons.length) p.weapons = ['garrote'];
     G.sortWeapons();
@@ -75,6 +75,7 @@
     const tech = G.stage ? G.stage.tech || 0 : 0;
     if (!d.mini && !d.proj && d.ai !== 'kamikaze' && d.gun !== false) { G.gunAcc = (G.gunAcc || 0) + CV.clamp((tech - 1) / 8, 0, 1); if (G.gunAcc >= 1) { G.gunAcc -= 1; e.gun = CV.rand(1, 2.5); } }
     if (d.mini) { e.hp = Math.round(e.hp * 1.35); e.mcd = 1.5; e.lcd = 3; } // minijefes: más vida, disparan en abanico y pegan saltos
+    e.hp0 = e.hp;
     G.enemies.push(e); return e;
   };
 
@@ -233,9 +234,8 @@
     if (p.inv <= 0 && (kindAt(tx0, ty1) === 3 || kindAt(tx1, ty1) === 3)) { G.hurtPlayer(1, -p.face); if (!p.dead) p.vy = -230; }
     // caída al vacío
     if (p.y > L.h * T + 24) {
-      p.hp -= 1; sfx('hurt'); G.hurtFlash = .2; G.shake = 4;
-      if (p.hp <= 0) { p.hp = 0; p.dead = .001; p.vy = -200; p.vx = 0; }
-      else { const s = safeSpot(); p.x = s.x; p.y = s.y; p.vx = p.vy = 0; p.inv = 1.5; }
+      // caer es morir: se pierde toda la vida y se vuelve al último punto de control
+      if (!p.dead) { p.hp = 0; p.dead = .001; p.vy = -200; p.vx = 0; sfx('hurt'); sfx('die'); G.hurtFlash = .2; G.shake = 6; }
     }
     if (p.onGround && !p.onOneway && kindAt(Math.floor((p.x + 5) / T), Math.floor((p.y + p.h + 2) / T)) === 1 && kindAt(Math.floor((p.x + 5) / T), Math.floor((p.y + p.h - 2) / T)) !== 3) G.safe = { x: p.x, y: p.y };
     if (G.arena && !G.arena.active && !G.arena.cleared && p.x > G.arena.x0 + 28) CV.Boss.start();
@@ -253,6 +253,7 @@
     const p = G.player;
     p.hp = p.maxHp; p.dead = 0; p.vx = p.vy = 0; p.inv = 1.5; p.rollT = 0;
     G.pdx.v = 0; G.projs = []; G.lines = [];
+    for (const e of G.enemies) if (e.hp0) e.hp = e.hp0; // al morir el viajero, los enemigos que quedaron vivos se recuperan del todo
     if (G.boss || (G.arena && G.arena.active)) { G.boss = null; G.arena.active = false; G.enemies = G.enemies.filter(e => !e.summoned && !e.pdx); CV.audio.play(G.stage.music); }
     const z = G.zanja;
     if (z && z.active) {
@@ -473,7 +474,7 @@
         sfx('pick'); G.say(p, '+Munición', 1);
       } else if (k.type === 'weapon') {
         const w = CV.weapons[k.id];
-        if (p.weapons.indexOf(k.id) < 0) { p.weapons.push(k.id); if (sd.weapons.indexOf(k.id) < 0) { sd.weapons.push(k.id); CV.save.write(); } }
+        if (p.weapons.indexOf(k.id) < 0) { p.weapons.push(k.id); if (w.tech <= (G.stage.tech || 0) && sd.weapons.indexOf(k.id) < 0) { sd.weapons.push(k.id); CV.save.write(); } }
         p.wi = p.weapons.indexOf(k.id); G.sortWeapons();
         if (w.type === 'ranged') p.ammo[k.id] = w.ammo;
         sfx('weapon'); G.setBanner('¡ARMA: ' + w.name + '!');
@@ -494,12 +495,14 @@
     for (const n of G.npcs) {
       const near = Math.abs(p.x - n.x) < 38 && Math.abs(p.y - n.y) < 34;
       n.face = p.x < n.x ? -1 : 1;
-      if (n.def.chain) { // habla en cadena: dice sus líneas una tras otra (tutorial del Dr. Cronos)
-        const ls = n.def.lines;
-        if (near && !n.near && (n.ci === undefined || n.ci >= ls.length)) { n.ci = n.ci === undefined ? 0 : ls.length - 1; n.ct = 0; }
-        if (near && n.ci !== undefined && n.ci < ls.length && !G.dialog) { /* solo sigue hablando si te quedás cerca */ n.ct -= dt; if (n.ct <= 0) { G.say(n, ls[n.ci++], 5); n.ct = 4.6; sfx('talk'); } }
-        if (near && !n.gift && n.def.gift) { n.gift = true; const gf = n.def.gift; G.pickups.push(mkPick(gf.weapon ? 'weapon' : gf.ammo ? 'ammo' : 'heal', gf.weapon || gf.heal || 'ammo', n.x + 6 + n.face * 14, n.y - 4, false)); }
-        n.near = near; continue;
+      if (n.def.chain) { // el Dr. Cronos: conversación en el cuadro de diálogo, que pausa el juego mientras se lee
+        if (near && !n.talked && !G.dialog && p.onGround && !p.dead) {
+          n.talked = true; sfx('talk');
+          G.openDialog(n.def.dialog || n.def.lines.map(t => ({ who: 'Dr. Cronos', spr: 'profe', color: '#73eff7', text: t })));
+          if (n.def.gift) { const gf = n.def.gift; G.pickups.push(mkPick(gf.weapon ? 'weapon' : gf.ammo ? 'ammo' : 'heal', gf.weapon || gf.heal || 'ammo', n.x + 6 + n.face * 14, n.y - 4, false)); }
+        } else if (near && !n.near && n.talked) G.say(n, CV.pick(['No acepto devoluciones.', 'Ya te expliqué. Leé el manual. No hay manual.', 'Seguí, seguí. Yo cuido la pausa.']), 2.4);
+        n.near = near;
+        continue;
       }
       if (near && !n.near) {
         const ls = n.def.lines; G.say(n, ls[n.said % ls.length], 4.2); n.said++; sfx('talk');
@@ -576,7 +579,8 @@
     sd.completed[id] = true;
     const got = Object.keys(G.collected).map(Number), h0 = CV.save.hearts();
     sd.collect[id] = Array.from(new Set((sd.collect[id] || []).concat(got))).sort((a, b) => a - b);
-    for (const w of G.player.weapons) if (sd.weapons.indexOf(w) < 0) sd.weapons.push(w);
+    // las armas anacrónicas encontradas en el nivel no cruzan el portal: solo se guardan las de esta época o anteriores
+    for (const w of G.player.weapons) if (CV.weapons[w].tech <= (G.stage.tech || 0) && sd.weapons.indexOf(w) < 0) sd.weapons.push(w);
     CV.save.write();
     const piece = CV.progress.pieces().find(x => x.giver && x.giver.id === id);
     G.res = { collect: sd.collect[id].length, total: G.totalCollect, paradojas: G.pdx.count, time: G.time, piece: piece ? piece.branch : null, epilogue: first && G.stage.epilogue ? G.stage.epilogue : null, heart: CV.save.hearts() > h0 };
