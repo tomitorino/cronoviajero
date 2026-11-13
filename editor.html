@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cronoviajero — editor de niveles</title>
+<style>
+  body { margin: 0; background: #0d1021; color: #f4f4f4; font: 13px/1.4 monospace; }
+  header { padding: 8px 12px; background: #1a1c2c; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  button, select { font: inherit; background: #333c57; color: #f4f4f4; border: 1px solid #566c86; padding: 4px 10px; cursor: pointer; }
+  button:hover { background: #566c86; }
+  #view { overflow-x: auto; background: #07080f; padding: 8px; }
+  canvas { image-rendering: pixelated; cursor: crosshair; display: block; }
+  #pal { padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 4px; }
+  #pal button { min-width: 34px; } #pal button.on { background: #ffcd75; color: #1a1c2c; }
+  textarea { width: calc(100% - 24px); margin: 0 12px 12px; height: 250px; background: #1a1c2c; color: #a7f070; border: 1px solid #566c86; font: 13px/1.15 monospace; white-space: pre; overflow: auto; }
+  #msg { color: #ffcd75; } small { color: #94b0c2; }
+</style>
+</head>
+<body>
+<header>
+  <b>EDITOR DE NIVELES</b>
+  <select id="stage"></select>
+  <button id="test">▶ Probar nivel</button>
+  <button id="copy">Copiar como JS</button>
+  <button id="reset">Restaurar original</button>
+  <span id="msg"></span>
+</header>
+<div id="pal"></div>
+<div id="view"><canvas id="cv"></canvas></div>
+<p style="margin:6px 12px"><small>Clic / arrastrar en la vista para pintar con el caracter elegido (clic derecho borra). También podés editar el texto de abajo: una fila por línea.
+«Copiar como JS» genera <code>map: [...]</code> para pegar en <code>level</code> de la etapa (reemplaza a <code>segments</code>).</small></p>
+<textarea id="txt" spellcheck="false"></textarea>
+
+<script src="js/core.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/world.js"></script>
+<script src="data/common.js"></script>
+<script src="data/timeline.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id), T = 16, S = 2;
+  const sel = $('stage'), txt = $('txt'), cv = $('cv'), g = cv.getContext('2d'), msg = $('msg');
+  let stage = null, brush = '#', level = null;
+  const NAMES = { '#': 'piso', 'B': 'bloque', '=': 'plataforma', '^': 'pinches', 'P': 'jugador', 'O': 'portal', 'c': 'coleccionable', 'h': 'curación', 'm': 'munición', 'F': 'control', '[': 'arena', 'X': 'jefe', ' ': 'borrar' };
+  const files = CV.timeline.stages.filter(s => s.file).map(s => s.file); let i = 0;
+  (function next() {
+    if (i >= files.length) return init();
+    const s = document.createElement('script'); s.src = 'data/stages/' + files[i++] + '.js'; s.onload = next; s.onerror = next; document.head.appendChild(s);
+  })();
+  function init() {
+    for (const id in CV.stages) { const o = document.createElement('option'); o.value = id; o.textContent = CV.stages[id].title; sel.appendChild(o); }
+    sel.onchange = () => load(sel.value);
+    const q = new URLSearchParams(location.search).get('stage');
+    if (q && CV.stages[q]) sel.value = q;
+    load(sel.value);
+  }
+  function rows() { return txt.value.replace(/\s+$/, '').split('\n'); }
+  function load(id, original) {
+    stage = CV.stages[id]; let r = null;
+    if (!original) { try { r = JSON.parse(localStorage.getItem('cv_editor_' + id)); } catch (e) { } }
+    r = r || CV.levelRows(stage.level);
+    const w = r.reduce((m, x) => Math.max(m, x.length), 0);
+    txt.value = r.map(x => x.padEnd(w, ' ')).join('\n');
+    palette(); draw();
+  }
+  function palette() {
+    const pal = $('pal'); pal.innerHTML = '';
+    const lg = Object.assign({ ' ': {} }, CV.LEGEND, stage.level.legend);
+    for (const ch in lg) {
+      const d = lg[ch], b = document.createElement('button');
+      b.textContent = (ch === ' ' ? '␣' : ch) + ' ' + (NAMES[ch] || d.enemy || d.weapon || d.npc || d.decor || '');
+      b.className = ch === brush ? 'on' : ''; b.onclick = () => { brush = ch; palette(); };
+      pal.appendChild(b);
+    }
+  }
+  function draw() {
+    const prev = console.warn; console.warn = () => { };
+    try { level = CV.buildLevel(stage, rows()); } finally { console.warn = prev; }
+    cv.width = level.w * T; cv.height = level.h * T; cv.style.width = level.w * T * S + 'px'; cv.style.height = level.h * T * S + 'px';
+    g.imageSmoothingEnabled = false;
+    const sky = stage.bg.sky; for (let y = 0; y < cv.height; y += 8) { g.fillStyle = CV.hexLerp(sky[0], sky[sky.length - 1], y / cv.height); g.fillRect(0, y, cv.width, 8); }
+    g.fillStyle = 'rgba(255,255,255,.08)'; for (let x = 0; x < level.w; x++) g.fillRect(x * T, 0, 1, cv.height); for (let y = 0; y < level.h; y++) g.fillRect(0, y * T, cv.width, 1);
+    CV.drawTiles(g, level, 0, 0, cv.width, cv.height);
+    for (const s of level.spawns) {
+      const d = s.def, x = s.x * T, y = s.y * T;
+      let spr = d.enemy ? CV.enemies[d.enemy] && CV.enemies[d.enemy].sprite : d.weapon ? CV.weapons[d.weapon].spr : d.npc ? stage.npcs[d.npc].sprite : d.decor ? d.decor : d.player ? 'hero' : d.collect ? stage.collectible.spr : d.heal ? CV.items[stage.heals[0]].spr : d.ammo ? 'i_ammo' : d.boss ? stage.boss.sprite : null;
+      if (spr) { const sp = CV.sprite(spr), sc = d.boss || (d.enemy && CV.enemies[d.enemy].scale) || 1; CV.spr(g, spr, 'idle', x + 8 - sp.w * sc / 2, y + T - sp.h * sc, { scale: sc }); }
+      else { g.fillStyle = d.arena ? '#e03c32' : d.portal ? '#b78cff' : '#73eff7'; g.fillRect(x + 2, y + 2, 12, 12); }
+      CV.text(g, s.ch, x + 5, y - 8, { color: '#ffe14a' });
+      if (d.arena) { g.fillStyle = 'rgba(224,60,50,.5)'; g.fillRect(x, 0, 1, cv.height); }
+    }
+  }
+  function paint(e, erase) {
+    const r = cv.getBoundingClientRect(), x = Math.floor((e.clientX - r.left) / (T * S)), y = Math.floor((e.clientY - r.top) / (T * S));
+    const rs = rows(); if (y < 0 || y >= rs.length || x < 0) return;
+    const row = rs[y].padEnd(x + 1, ' '), ch = erase ? ' ' : brush;
+    if (row[x] === ch) return;
+    rs[y] = row.slice(0, x) + ch + row.slice(x + 1); txt.value = rs.join('\n'); draw();
+  }
+  let down = 0;
+  cv.addEventListener('mousedown', e => { down = e.button === 2 ? 2 : 1; paint(e, down === 2); });
+  cv.addEventListener('mousemove', e => { if (down) paint(e, down === 2); });
+  window.addEventListener('mouseup', () => down = 0);
+  cv.addEventListener('contextmenu', e => e.preventDefault());
+  txt.addEventListener('input', draw);
+  $('test').onclick = () => { localStorage.setItem('cv_editor_' + stage.id, JSON.stringify(rows())); window.open('index.html?stage=' + stage.id + '&edit=1', '_blank'); };
+  $('reset').onclick = () => { localStorage.removeItem('cv_editor_' + stage.id); load(stage.id, true); msg.textContent = 'Nivel original restaurado.'; };
+  $('copy').onclick = () => {
+    const js = 'map: [\n' + rows().map(r => "  '" + r.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + "'").join(',\n') + '\n],';
+    const done = () => msg.textContent = 'Copiado: pegalo dentro de level: { ... } en data/stages/' + stage.id + '.js';
+    if (navigator.clipboard) navigator.clipboard.writeText(js).then(done, () => { txt.value = js; }); else { txt.value = js; }
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cronoviajero</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #07080f; overflow: hidden; }
+  #wrap { display: flex; align-items: center; justify-content: center; height: 100%; }
+  canvas { image-rendering: pixelated; image-rendering: crisp-edges; background: #0d1021; box-shadow: 0 0 40px #000; }
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="game" width="384" height="216"></canvas></div>
+<!-- motor -->
+<script src="js/core.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/input.js"></script>
+<script src="js/world.js"></script>
+<script src="js/game.js"></script>
+<script src="js/boss.js"></script>
+<script src="js/gamedraw.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/cutscenes.js"></script>
+<!-- datos (las etapas se cargan solas desde data/timeline.js) -->
+<script src="data/common.js"></script>
+<script src="data/timeline.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
